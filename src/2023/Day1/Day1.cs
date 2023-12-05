@@ -1,6 +1,6 @@
-﻿namespace AdventOfCode2023.Day1
+﻿namespace AdventOfCode2023
 {
-    public class Day1
+    public class Day1 : IDay
     {
         private readonly string[] _input;
 

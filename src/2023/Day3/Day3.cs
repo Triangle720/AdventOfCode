@@ -1,6 +1,6 @@
-﻿namespace AdventOfCode2023.Day3
+﻿namespace AdventOfCode2023
 {
-    public class Day3
+    public class Day3 : IDay
     {
         private readonly char[,] _input;
         private readonly int _inputColumnsCount;
