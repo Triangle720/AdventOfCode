@@ -1,4 +1,4 @@
-﻿using AdventOfCode2023.Day2;
+﻿using AdventOfCode2023;
 
 namespace AdventOfCode.Tests._2023
 {
