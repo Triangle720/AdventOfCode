@@ -17,7 +17,7 @@
 
         public int Part2()
         {
-            var sratchardIndexesAndCount = Enumerable.Range(1, _input.Length).ToDictionary(x => x, y => 1);
+            var scratchardIndexesAndCount = Enumerable.Range(1, _input.Length).ToDictionary(x => x, y => 1);
 
             for (var i = 0; i < _input.Length; i++)
             {
@@ -26,14 +26,14 @@
                 for (var j = 1; j <= matchCount; j++)
                 {
                     var scratchcardIndex = i + j + 1;
-                    if (sratchardIndexesAndCount.ContainsKey(scratchcardIndex))
+                    if (scratchardIndexesAndCount.ContainsKey(scratchcardIndex))
                     {
-                        sratchardIndexesAndCount[scratchcardIndex] += sratchardIndexesAndCount[i + 1];
+                        scratchardIndexesAndCount[scratchcardIndex] += scratchardIndexesAndCount[i + 1];
                     }         
                 }
             }
   
-            return sratchardIndexesAndCount.Sum(x => x.Value);
+            return scratchardIndexesAndCount.Sum(x => x.Value);
         }
 
         private static int GetMatchCountFromLine(string line)
