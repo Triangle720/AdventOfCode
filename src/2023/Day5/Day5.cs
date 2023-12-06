@@ -2,14 +2,14 @@
 {
     public class Day5 : IDay
     {
-        private record Ranges(uint DestinationRangeStart, uint SourceRangeStart, uint RangeLength)
+        private record RangeMap(long DestinationRangeStart, long SourceRangeStart, long RangeLength)
         {
-            private bool IsInRange(uint value)
+            private bool IsInRange(long value)
             {
                 return value >= SourceRangeStart && value < SourceRangeStart + RangeLength;
             }
 
-            public uint GetDestinationNumber(uint value)
+            public long GetDestinationNumber(long value)
             {
                 if (!IsInRange(value))
                 {
@@ -18,10 +18,56 @@
 
                 return DestinationRangeStart + (value - SourceRangeStart);
             }
+
+            public NumRange[] GetDestinationRanges(NumRange numRange)
+            {
+                var ranges = new List<NumRange>();
+
+                if (numRange.Start < SourceRangeStart)
+                {
+                    if (numRange.End < SourceRangeStart)
+                    {
+                        return [numRange];
+                    }
+
+                    ranges.Add(new NumRange(numRange.Start, SourceRangeStart - 1));
+
+                    if (IsInRange(numRange.End))
+                    {
+                        ranges.Add(new NumRange(DestinationRangeStart, GetDestinationNumber(numRange.End)));
+                    }
+                    else
+                    {
+                        ranges.Add(new NumRange(DestinationRangeStart, DestinationRangeStart + RangeLength));
+                        if (numRange.End >= SourceRangeStart + RangeLength)
+                        {
+                            ranges.Add(new NumRange(SourceRangeStart + RangeLength, numRange.End));
+                        }
+                    }
+                }
+                else if (IsInRange(numRange.Start))
+                {
+                    if (IsInRange(numRange.End))
+                    {
+                        return [new NumRange(GetDestinationNumber(numRange.Start), GetDestinationNumber(numRange.End))];
+                    }
+
+                    ranges.Add(new NumRange(GetDestinationNumber(numRange.Start), DestinationRangeStart + RangeLength - 1));
+                    ranges.Add(new NumRange(SourceRangeStart + RangeLength, numRange.End));
+                }
+                else
+                {
+                    return [numRange];
+                }
+
+                return [.. ranges];
+            }
         }
 
-        private readonly uint[] _seeds;
-        private readonly Dictionary<string, Ranges[]> _maps;
+        private record NumRange(long Start, long End);
+
+        private readonly long[] _seeds;
+        private readonly Dictionary<string, RangeMap[]> _maps;
 
         public Day5(string[] input)
         {
@@ -39,12 +85,7 @@
             return (int)numbers.Min();
         }
 
-        public int Part2()
-        {
-            return 0; // TBD
-        }
-
-        static uint[] Map(uint[] numbers, Ranges[] maps)
+        static long[] Map(long[] numbers, RangeMap[] maps)
         {
             return numbers.SelectMany(number =>
             {
@@ -53,28 +94,69 @@
                     .Where(x => !x.Equals(number))
                     .ToArray();
 
-                return matchingMaps.Length > 0 ? matchingMaps : [ number ];    
+                return matchingMaps.Length > 0 ? matchingMaps : [number];
             })
                 .Distinct()
                 .ToArray();
         }
 
-        private static (uint[] Seeds, Dictionary<string, Ranges[]> Maps) ReadSeedsAndMapsFromInput(string[] input)
+        public int Part2()
         {
-            var seeds = input.First().Split(' ')[1..].Select(uint.Parse).ToArray();
-            var maps = new Dictionary<string, Ranges[]>
+            var ranges = ConvertSeedsToNumRanges();
+            foreach (var map in _maps)
             {
-                { "seed-to-soil", Array.Empty<Ranges>() },
-                { "soil-to-fertilizer", Array.Empty<Ranges>() },
-                { "fertilizer-to-water", Array.Empty<Ranges>() },
-                { "water-to-light", Array.Empty<Ranges>() },
-                { "light-to-temperature", Array.Empty<Ranges>() },
-                { "temperature-to-humidity", Array.Empty<Ranges>() },
-                { "humidity-to-location", Array.Empty<Ranges>() }
+                ranges = Map(ranges, map.Value);
+            }
+
+            return (int)ranges.Select(x => x.Start).Min();
+        }
+
+        private NumRange[] ConvertSeedsToNumRanges()
+        {
+            var ranges = new List<NumRange>();
+            for (var i = 0; i < _seeds.Length - 1; i += 2)
+            {
+                ranges.Add(new NumRange(_seeds[i], _seeds[i] + _seeds[i + 1] - 1));
+            }
+
+            return [.. ranges];
+        }
+
+        static NumRange[] Map(NumRange[] ranges, RangeMap[] maps)
+        {
+            var mappedRanges = ranges.SelectMany(range =>
+            {
+                var mapped = maps.SelectMany(x =>
+                {
+                    return x.GetDestinationRanges(range)
+                        .Where(x => !x.Equals(range));
+                })
+                .ToList();
+
+                return mapped.Any() ? mapped : [range];
+            })
+            .Distinct()
+            .ToArray();
+
+            return mappedRanges;
+        }
+
+        private static (long[] Seeds, Dictionary<string, RangeMap[]> Maps) ReadSeedsAndMapsFromInput(string[] input)
+        {
+            var seeds = input.First().Split(' ')[1..].Select(long.Parse).ToArray();
+            var maps = new Dictionary<string, RangeMap[]>
+            {
+                { "seed-to-soil", [] },
+                { "soil-to-fertilizer", [] },
+                { "fertilizer-to-water", [] },
+                { "water-to-light", [] },
+                { "light-to-temperature", [] },
+                { "temperature-to-humidity", [] },
+                { "humidity-to-location", [] }
             };
 
             var currentMap = string.Empty;
-            var rangesList = new List<Ranges>();
+            var rangesList = new List<RangeMap>();
 
             for (var i = 2; i < input.Length; i++)
             {
@@ -92,8 +174,8 @@
                     continue;
                 }
 
-                var values = input[i].Split(' ').Select(uint.Parse).ToArray();
-                rangesList.Add(new Ranges(values[0], values[1], values[2]));
+                var values = input[i].Split(' ').Select(long.Parse).ToArray();
+                rangesList.Add(new RangeMap(values[0], values[1], values[2]));
             }
 
             maps[currentMap] = [.. rangesList]; // populate last map
