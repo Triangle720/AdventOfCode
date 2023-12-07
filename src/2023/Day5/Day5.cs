@@ -100,7 +100,8 @@
                 .ToArray();
         }
 
-        public int Part2()
+        
+        public int Part2() // TODO: Has to be fixed, ranges contains proper result but it is not the MIN
         {
             var ranges = ConvertSeedsToNumRanges();
             foreach (var map in _maps)
