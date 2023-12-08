@@ -5,7 +5,8 @@ using Shared;
 var days = new List<IDay>
 {
     new Day1(InputReader.ReadInputLines(1)),
-    new Day2(InputReader.ReadInputLines(2))
+    new Day2(InputReader.ReadInputLines(2)),
+    new Day3(InputReader.ReadInputLines(3))
 };
 
 foreach (var day in days)
