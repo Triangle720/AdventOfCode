@@ -4,7 +4,7 @@ namespace Shared
 {
     public static class InputReader
     {
-        public static string[] ReadInputLines(int year, int dayNumber)
+        public static string[] ReadInputLines(int dayNumber)
         {
             if (dayNumber is <= 0 or >= 26)
             {
