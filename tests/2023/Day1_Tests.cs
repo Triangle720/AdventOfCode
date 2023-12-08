@@ -12,7 +12,7 @@ namespace AdventOfCode.Tests._2023
         [InlineData("a9dse5", 95)]
         [InlineData("u8ekf6dwq", 86)]
         [InlineData("63423634124635", 65)]
-        public void Part1_Tests(string input, int expected)
+        public void Part1_Tests(string input, double expected)
         {
             var sut = new Day1([input]);
             var result = sut.Part1();
@@ -31,7 +31,7 @@ namespace AdventOfCode.Tests._2023
         [InlineData("1two", 12)]
         [InlineData("seven5", 75)]
         [InlineData("6eightseven6", 66)]
-        public void Part2_Tests(string input, int expected)
+        public void Part2_Tests(string input, double expected)
         {
             var sut = new Day1([input]);
             var result = sut.Part2();

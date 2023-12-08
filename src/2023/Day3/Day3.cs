@@ -11,7 +11,7 @@
             (_input, _inputRowsCount, _inputColumnsCount) = ConvertInputTo2dCharArray(input);
         }
 
-        public int Part1()
+        public double Part1()
         {
             int Part1SumFunction(char c, int row, int column)
             {
@@ -27,7 +27,7 @@
             return WalkTrough2dArray(Part1SumFunction);
         }
 
-        public int Part2()
+        public double Part2()
         {
             int Part2SumFunction(char c, int row, int column)
             {

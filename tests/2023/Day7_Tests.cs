@@ -35,7 +35,7 @@ namespace AdventOfCode.Tests._2023
                 "2JJJJ 53",
                 "JJJJ2 41"
         })]
-        public void Part1_Tests(int expected, string[] input)
+        public void Part1_Tests(double expected, string[] input)
         {
             var sut = new Day7(input);
             var result = sut.Part1();
@@ -74,7 +74,7 @@ namespace AdventOfCode.Tests._2023
                 "2JJJJ 53",
                 "JJJJ2 41"
         })]
-        public void Part2_Tests(int expected, string[] input)
+        public void Part2_Tests(double expected, string[] input)
         {
             var sut = new Day7(input);
             var result = sut.Part2();

@@ -2,7 +2,7 @@
 {
     public class Day6 : IDay
     {
-        private record Race(ulong TimeInMiliseconds, ulong RecordDistanceInMilimeters);
+        private record Race(double TimeInMiliseconds, double RecordDistanceInMilimeters);
 
         private readonly Race[] _races;
 
@@ -11,9 +11,9 @@
             _races = ReadInput(input).ToArray();
         }
 
-        public int Part1()
+        public double Part1()
         {
-            var result = 1;
+            var result = 1d;
 
             foreach (var race in _races)
             {
@@ -23,7 +23,7 @@
             return result;
         }
 
-        public int Part2()
+        public double Part2()
         {
             ulong ParseStringsToInt(IEnumerable<string> numStrings)
             {
@@ -40,10 +40,10 @@
             return GetPossibleWaysToBeatTheRecord(race);
         }
 
-        private static int GetPossibleWaysToBeatTheRecord(Race race)
+        private static double GetPossibleWaysToBeatTheRecord(Race race)
         {
-            var result = 0;
-            for (var holdTime = 1UL; holdTime < race.TimeInMiliseconds - 1UL; holdTime++)
+            var result = 0d;
+            for (var holdTime = 1d; holdTime < race.TimeInMiliseconds - 1d; holdTime++)
             {
                 var timeLeft = race.TimeInMiliseconds - holdTime;
                 if (timeLeft * holdTime > race.RecordDistanceInMilimeters)

@@ -17,7 +17,7 @@ namespace AdventOfCode.Tests._2023
             "Card 2:  1  2  3  4 |  5  6  7  8", // 0p
             "Card 3:  1 |  2"                    // 0 p
         })]
-        public void Part1_Tests(int expected, string[] input)
+        public void Part1_Tests(double expected, string[] input)
         {
             var sut = new Day4(input);
             var result = sut.Part1();
@@ -40,7 +40,7 @@ namespace AdventOfCode.Tests._2023
             "Card 2:  1  2  3  4 |  5  6  7  8", // 1 1 1 (no matches) 
             "Card 3:  1 |  2"                    // sum:3 (only original cards)
         })]
-        public void Part2_Tests(int expected, string[] input)
+        public void Part2_Tests(double expected, string[] input)
         {
             var sut = new Day4(input);
             var result = sut.Part2();

@@ -29,7 +29,7 @@ namespace AdventOfCode.Tests._2023
             "90 90 20",  // soil 10 -> fertilizer 10
             "100 100 15" // soil 100 -> fertilizer 100
         })]
-        public void Part1_Tests(int expected, string[] input)
+        public void Part1_Tests(double expected, string[] input)
         {
             var sut = new Day5(input);
             var result = sut.Part1();
@@ -74,7 +74,7 @@ namespace AdventOfCode.Tests._2023
             "100 12 3", // (10 5) = ranges (10, 11) & (100, 101, 102)
             "52 50 48" // (10 - 14)
         })]
-        public void Part2_Tests(int expected, string[] input)
+        public void Part2_Tests(double expected, string[] input)
         {
             var sut = new Day5(input);
             var result = sut.Part2();

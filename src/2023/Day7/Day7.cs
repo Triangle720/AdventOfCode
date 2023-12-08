@@ -6,9 +6,9 @@
 
         public Day7(string[] input) => _input = input;
 
-        public int Part1() => ProcessPlayers(ReadPlayersFromInput());
+        public double Part1() => ProcessPlayers(ReadPlayersFromInput());
 
-        public int Part2()
+        public double Part2()
         {
             var players = ReadPlayersFromInput().ToArray();
             Array.ForEach(players, x => x.Hand.SetBestPossibleKindWithJokers());

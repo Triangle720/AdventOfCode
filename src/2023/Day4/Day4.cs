@@ -6,7 +6,7 @@
 
         public Day4(string[] input) => _input = input;
 
-        public int Part1()
+        public double Part1()
         {
             return _input.Select(x =>
             {
@@ -15,7 +15,7 @@
             }).Sum();
         }
 
-        public int Part2()
+        public double Part2()
         {
             var scratchardIndexesAndCount = Enumerable.Range(1, _input.Length).ToDictionary(x => x, y => 1);
 

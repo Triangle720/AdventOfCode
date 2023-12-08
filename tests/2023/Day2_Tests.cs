@@ -6,7 +6,7 @@ namespace AdventOfCode.Tests._2023
     {
         [Theory]
         [MemberData(nameof(Part1_Test_Input))]
-        public void Part1_Tests(string[] input, int expected)
+        public void Part1_Tests(string[] input, double expected)
         {
             var sut = new Day2(input);
             var result = sut.Part1();
@@ -19,7 +19,7 @@ namespace AdventOfCode.Tests._2023
         [InlineData("Game 1: 20 red; 20 green; 20 blue", 8000)]
         [InlineData("Game 1: 10 red, 10 green, 10 blue; 5 green, 15 red; 15 green 5 blue", 2250)]
         [InlineData("Game 1: 20 red; 20 green", 400)]
-        public void Part2_Tests(string input, int expected)
+        public void Part2_Tests(string input, double expected)
         {
             var sut = new Day2([input]);
             var result = sut.Part2();

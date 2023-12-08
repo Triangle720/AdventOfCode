@@ -28,7 +28,7 @@ namespace AdventOfCode.Tests._2023
             "11..45..23",
             "..2..234.."
         })]
-        public void Part1_Tests(int expected, string[] input)
+        public void Part1_Tests(double expected, string[] input)
         {
             var sut = new Day3(input);
             var result = sut.Part1();
@@ -59,7 +59,7 @@ namespace AdventOfCode.Tests._2023
             "..324*.1..",
             "1000......*"
         })]
-        public void Part2_Tests(int expected, string[] input)
+        public void Part2_Tests(double expected, string[] input)
         {
             var sut = new Day3(input);
             var result = sut.Part2();

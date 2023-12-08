@@ -2,14 +2,14 @@
 {
     public class Day5 : IDay
     {
-        private record RangeMap(long DestinationRangeStart, long SourceRangeStart, long RangeLength)
+        private record RangeMap(double DestinationRangeStart, double SourceRangeStart, double RangeLength)
         {
-            private bool IsInRange(long value)
+            private bool IsInRange(double value)
             {
                 return value >= SourceRangeStart && value < SourceRangeStart + RangeLength;
             }
 
-            public long GetDestinationNumber(long value)
+            public double GetDestinationNumber(double value)
             {
                 if (!IsInRange(value))
                 {
@@ -64,9 +64,9 @@
             }
         }
 
-        private record NumRange(long Start, long End);
+        private record NumRange(double Start, double End);
 
-        private readonly long[] _seeds;
+        private readonly double[] _seeds;
         private readonly Dictionary<string, RangeMap[]> _maps;
 
         public Day5(string[] input)
@@ -74,7 +74,7 @@
             (_seeds, _maps) = ReadSeedsAndMapsFromInput(input);
         }
 
-        public int Part1()
+        public double Part1()
         {
             var numbers = _seeds;
             foreach (var map in _maps)
@@ -82,10 +82,10 @@
                 numbers = Map(numbers, map.Value);
             }
 
-            return (int)numbers.Min();
+            return numbers.Min();
         }
 
-        static long[] Map(long[] numbers, RangeMap[] maps)
+        static double[] Map(double[] numbers, RangeMap[] maps)
         {
             return numbers.SelectMany(number =>
             {
@@ -101,7 +101,7 @@
         }
 
         
-        public int Part2() // TODO: Has to be fixed, ranges contains proper result but it is not the MIN
+        public double Part2() // TODO: Has to be fixed, ranges contains proper result but it is not the MIN
         {
             var ranges = ConvertSeedsToNumRanges();
             foreach (var map in _maps)
@@ -142,9 +142,9 @@
             return mappedRanges;
         }
 
-        private static (long[] Seeds, Dictionary<string, RangeMap[]> Maps) ReadSeedsAndMapsFromInput(string[] input)
+        private static (double[] Seeds, Dictionary<string, RangeMap[]> Maps) ReadSeedsAndMapsFromInput(string[] input)
         {
-            var seeds = input.First().Split(' ')[1..].Select(long.Parse).ToArray();
+            var seeds = input.First().Split(' ')[1..].Select(double.Parse).ToArray();
             var maps = new Dictionary<string, RangeMap[]>
             {
                 { "seed-to-soil", [] },

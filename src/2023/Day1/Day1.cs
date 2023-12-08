@@ -6,7 +6,7 @@
 
         public Day1(string[] input) => _input = input;
 
-        public int Part1()
+        public double Part1()
         {
             return _input
                 .Select(x => x.Where(char.IsDigit))
@@ -15,7 +15,7 @@
                 .Sum();
         }
 
-        public int Part2()
+        public double Part2()
         {
             var digitsWithValues = new Dictionary<string, int>
             {

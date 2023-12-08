@@ -6,7 +6,7 @@
 
         public Day2(string[] input) => _input = input;
 
-        public int Part1()
+        public double Part1()
         {
             return _input
                 .Select((line, index) => (Draws: ReadCubesDrawsFromInputLine(line), Index: index + 1))
@@ -14,7 +14,7 @@
                 .Sum(x => x.Index);
         }
 
-        public int Part2()
+        public double Part2()
         {
             return _input.Sum(x => {
                 var draws = ReadCubesDrawsFromInputLine(x);
