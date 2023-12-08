@@ -1,4 +1,6 @@
-﻿namespace AdventOfCode2023
+﻿using Shared;
+
+namespace AdventOfCode2023
 {
     public class Day4 : IDay
     {

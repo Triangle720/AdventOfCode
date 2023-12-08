@@ -1,17 +1,16 @@
 ﻿using AdventOfCode2023;
-using System.Text;
-
+using Shared;
 
 var days = new List<IDay>
 {
-    new Day1(ReadInputLines(1)),
-    new Day2(ReadInputLines(2)),
-    new Day3(ReadInputLines(3)),
-    new Day4(ReadInputLines(4)),
-    new Day5(ReadInputLines(5)),
-    new Day6(ReadInputLines(6)),
-    new Day7(ReadInputLines(7)),
-    new Day8(ReadInputLines(8))
+    new Day1(InputReader.ReadInputLines(2023, 1)),
+    new Day2(InputReader.ReadInputLines(2023, 2)),
+    new Day3(InputReader.ReadInputLines(2023, 3)),
+    new Day4(InputReader.ReadInputLines(2023, 4)),
+    new Day5(InputReader.ReadInputLines(2023, 5)),
+    new Day6(InputReader.ReadInputLines(2023, 6)),
+    new Day7(InputReader.ReadInputLines(2023, 7)),
+    new Day8(InputReader.ReadInputLines(2023, 8))
 };
 
 foreach (var day in days)
@@ -22,21 +21,3 @@ foreach (var day in days)
 }
 
 Console.ReadKey();
-
-static string[] ReadInputLines(int dayNumber)
-{
-    if (dayNumber is <= 0 or >= 26)
-    {
-        throw new ArgumentException("DayNumber should be an integer in range from 1 to 25.");
-    }
-
-    var projectDirectory = Directory.GetParent(Environment.CurrentDirectory)!.Parent!.Parent!.FullName;
-    var fileInputPath = Path.Combine(projectDirectory, $"Day{dayNumber}/Day{dayNumber}.txt");
-
-    if (!File.Exists(fileInputPath))
-    {
-        throw new InvalidOperationException($"Input file \"{fileInputPath}\" does not exist.");
-    }
-
-    return File.ReadAllText(fileInputPath, Encoding.UTF8).Split(Environment.NewLine).ToArray();
-}
