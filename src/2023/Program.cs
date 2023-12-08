@@ -9,7 +9,8 @@ var days = new List<IDay>
     new Day3(ReadInputLines(3)),
     new Day4(ReadInputLines(4)),
     new Day5(ReadInputLines(5)),
-    new Day6(ReadInputLines(6))
+    new Day6(ReadInputLines(6)),
+    new Day7(ReadInputLines(7))
 };
 
 foreach (var day in days)
