@@ -8,36 +8,18 @@ namespace AdventOfCode2023
 
         public Day9(string[] input) => _input = input;
 
-        public double Part1()
+        public double Part1() => Process((x) => x.Extrapolate());
+        public double Part2() => Process((x) => x.ExtrapolateBackwards());
+
+        private double Process(Func<History, double> extrapolationFunction)
         {
-            var result = 0d;
-
-            foreach(var values in _input)
-            {
-                var history = new History(values.Split().Select(double.Parse).ToArray());
-                result += history.Extrapolate();
-            }
-
-            return result;
-        }
-
-        public double Part2()
-        {
-            var result = 0d;
-
-            foreach (var values in _input)
-            {
-                var history = new History(values.Split().Select(double.Parse).ToArray());
-                result += history.ExtrapolateBackwards();
-            }
-
-            return result;
+            return _input.Select(x => extrapolationFunction(new History(x.Split().Select(double.Parse).ToArray()))).Sum();
         }
 
         private class History
         {
             private readonly double[] _values;
-            private History? _nextHistory;
+            private readonly History? _nextHistory;
 
             public History(double[] values)
             {
@@ -55,25 +37,11 @@ namespace AdventOfCode2023
                 }
             }
 
-            public double Extrapolate()
-            {
-                if (_nextHistory is null)
-                {
-                    return 0;
-                }
+            public double Extrapolate() 
+                => _nextHistory is null ? 0 : _values.Last() + _nextHistory.Extrapolate();
 
-                return _values.Last() + _nextHistory.Extrapolate();
-            }
-
-            public double ExtrapolateBackwards()
-            {
-                if (_nextHistory is null)
-                {
-                    return 0;
-                }
-
-                return _values.First() - _nextHistory.ExtrapolateBackwards();
-            }
+            public double ExtrapolateBackwards() 
+                => _nextHistory is null ? 0 : _values.First() - _nextHistory.ExtrapolateBackwards();
         }
     }
 }
