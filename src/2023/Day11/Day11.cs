@@ -43,7 +43,7 @@ namespace AdventOfCode2023
                 .Where(x => x > -1)
                 .ToArray();
 
-            var expandedColsIndexes = _input
+            var expandedColsIndexes = _input // change if input Width != Height :)
                 .Select((x, index) => _input.All(y => y[index].Equals('.')) ? index : -1)
                 .Where(x => x > -1)
                 .ToArray();
